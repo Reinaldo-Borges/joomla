@@ -1,0 +1,13 @@
+.span3{
+    width: 25%;
+    float: left;
+}
+
+.span6{
+    width: 50%;
+    float: left;
+}
+
+.conteudo{
+    padding-left: 10px;
+}
