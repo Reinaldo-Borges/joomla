@@ -18,6 +18,7 @@
 		<filename>multipagamentos-hikashop.php</filename>		
 		<filename>index.html</filename>
 		<folder>tmpl</folder>
+		<folder>media</folder>
 	</files>
 	<languages>
 		<language tag="en-GB">language/en-GB/en-GB.multipagamentos.ini</language>
@@ -26,7 +27,8 @@
 	<help url="HELP_EXTENSIONS_MODULE_MULTIPAGAMENTOS_URL" />
 	<media destination="multipagamentos" folder="media">
 		<filename>index.html</filename>
-		<folder>css</folder>
+		<filename>style.css</filename>
+		<!-- <folder>css</folder> -->
 	</media>
 	<params addpath="/components/com_hikashop/params">
 		<param name="pluginoptions" type="pluginoptions" default="plugin" label="hikashop" description="HikaShop options" />

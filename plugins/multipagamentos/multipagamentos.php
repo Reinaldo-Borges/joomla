@@ -7,6 +7,17 @@ jimport( 'joomla.plugin.helper' );
 
 class plgMultiPagamentos extends hikashopPaymentPlugin
 {
+
+	public function __construct(){
+
+		$document = JFactory::getDocument();
+		$document->addStyleSheet("/joomla/plugins/hikashoppayment/multipagamentos/media/css/style.css",'text/css',"screen");
+
+		
+		
+	}
+
+
     //$keyAPI = MultiPagamentosHelper::getKey($params);
 
     //echo 'CHAVE: '.$keyAPI;

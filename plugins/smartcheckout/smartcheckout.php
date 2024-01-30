@@ -5,7 +5,7 @@
     class plgHikaShopSmartCheckout extends JPlugin {
 
         protected $plugin_name = 'smartcheckout';
-        public $cart = null;
+        public $cart = null;  
 
         public function __construct(&$subject, $config) {
             parent::__construct($subject, $config);
@@ -15,8 +15,6 @@
 
             $plugin = JPluginHelper::getPlugin('hikashop', $this->plugin_name);
             $this->params = new JRegistry(@$plugin->params);
-
-            
         }
 
         public function onAfterCheckoutStep($controller, &$go_back, $original_go_back){
@@ -31,32 +29,23 @@
             echo "original_go_back"."<br>";
             var_dump($original_go_back);
            
-        }
+        }     
 
-        // public function onHikashopAfterDisplayView(&$view){
-        //     echo "onHikashopBeforeDisplayView"."<br>";   
-        //     //$view;
+        public function onCheckoutWorkflowLoad(&$checkout_workflow, &$shop_closed, $cart_id){                     
 
-        //     header("Location: /joomla/plugins/hikashoppayment/multipagamentos/tmpl/default.php");
-        //     die();
-        // }
-
-        public function onCheckoutWorkflowLoad(&$checkout_workflow, &$shop_closed, $cart_id){
-            echo "onCheckoutWorkflowLoad"."<br>";
-            echo "checkout_workflow: "."<br>";
-            echo json_encode($checkout_workflow);
-            echo "<br>";
-
-            echo "shop_closed: ".json_encode($shop_closed)."<br>";        
-
-            echo "cart_id: ".$cart_id."<br>";           
-
+            //get cartId
             $this->cart = hikashop_get('class.cart');
             $cartId = $this->cart->getCurrentCartId();
-            $this->getDataCart($cartId);
+            //$this->getDataCart($cartId);
 
-            //header("Location: /joomla/plugins/hikashoppayment/multipagamentos/tmpl/default.php");
-            //die();
+            //get user
+            $user = JFactory::getUser();          
+            $userId = $user->id; 
+
+            if($cartId > 0){
+                header("Location: /joomla/plugins/hikashoppayment/multipagamentos/tmpl/default.php?cartid=$cartId&userId=$userId");     
+                die();           
+            }
         }
 
         public function getDataCart($cart_id){
@@ -77,8 +66,8 @@
     
                 echo $db->replacePrefix((string) $query);
     
-                $results = $db->loadAssocList();
-    
+                $results = $db->loadAssocList();                
+                
                 foreach ($results as $row) {
                     echo "<p> Quantity: ". $row['QTD'] . " Price: " . $row['Price'] . "  Product: " . $row['ProductId'] . "<br></p>";
                 }
@@ -88,12 +77,7 @@
                 return false;
             }
     
-            // foreach($results as $k => $result){
-            // 	$results[$k] = new stdClass;		
-            // 	$results[$k]->id = (int) $result->price_product_id;
-            // 	$results[$k]->value = (int) $result->price_value;
-                          
-            // }
+         
         }
         
 
